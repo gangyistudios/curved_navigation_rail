@@ -1,6 +1,6 @@
 name: curved_navigation_rail
 description: Stunning Animating Curved Shape Navigation Rail. Adjustable color, background color, animation curve, animation duration.
-version: 1.0.3
+version: 2.0.0
 homepage: https://github.com/gangyistudios/curved_navigation_rail
 
 environment:
