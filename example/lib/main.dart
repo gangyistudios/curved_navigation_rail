@@ -56,7 +56,7 @@ class _CurvedNavigationRailExampleState
         bottomNavigationBar: CurvedNavigationRail(
           key: _bottomNavigationKey,
           selectedIndex: 0,
-          height: 60.0,
+          width: 60.0,
           destinations: destinations,
           color: Colors.white,
           buttonBackgroundColor: Colors.white,

@@ -14,7 +14,7 @@ class CurvedNavigationRail extends StatefulWidget {
   final _LetIndexPage letIndexChange;
   final Curve animationCurve;
   final Duration animationDuration;
-  final double height;
+  final double width;
 
   CurvedNavigationRail({
     Key? key,
@@ -27,12 +27,12 @@ class CurvedNavigationRail extends StatefulWidget {
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
-    this.height = 75.0,
+    this.width = 75.0,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(destinations != null),
         assert(destinations.length >= 1),
         assert(0 <= selectedIndex && selectedIndex < destinations.length),
-        assert(0 <= height && height <= 75.0),
+        assert(0 <= width && width <= 75.0),
         super(key: key);
 
   @override
@@ -95,14 +95,13 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
     return Row(children: [
       Container(
         color: widget.backgroundColor,
-        // TODO: change this to a width variable.
-        width: widget.height,
+        width: widget.width,
         // height: 800,
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.centerLeft,
           children: [
-            Scaffold(body: Center(child: Text('hello'))),
+            Scaffold(),
             Positioned1a(
               widget: widget,
               pos: _pos,
@@ -117,7 +116,7 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
               // right: 0,
               // bottom: 0 - (75.0 - widget.height),
               // TODO: Change to widget.width
-              left: 0 - (75.0 - widget.height),
+              left: 0 - (75.0 - widget.width),
               top: 0,
               bottom: 0,
               child: SizedBox(
@@ -182,7 +181,7 @@ class Positioned2a extends StatelessWidget {
       // bottom: 0 - (75.0 - widget.height),
       // NEW
       // TODO: Change to widget.width
-      left: 0 - (75.0 - widget.height),
+      left: 0 - (75.0 - widget.width),
       top: 0,
       bottom: 0,
       child: CustomPaint(
@@ -222,7 +221,7 @@ class Positioned1a extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       top: _pos * size.height,
-      left: -40 - (75.0 - widget.height),
+      left: -40 - (75.0 - widget.width),
       height: size.height / _length,
       child: Positioned1aCenter(
         buttonHide: _buttonHide,
