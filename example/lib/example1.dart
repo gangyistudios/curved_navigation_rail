@@ -25,27 +25,22 @@ class _CurvedNavigationRailExampleState
   final List<NavigationRailDestination> destinations = [
     NavigationRailDestination(
       icon: Icon(Icons.add),
-      // selectedIcon: Icon(Icons.favorite),
       label: Text('First'),
     ),
     NavigationRailDestination(
       icon: Icon(Icons.list),
-      // selectedIcon: Icon(Icons.favorite),
       label: Text('Second'),
     ),
     NavigationRailDestination(
       icon: Icon(Icons.compare_arrows),
-      // selectedIcon: Icon(Icons.favorite),
       label: Text('Third'),
     ),
     NavigationRailDestination(
       icon: Icon(Icons.call_split),
-      // selectedIcon: Icon(Icons.favorite),
       label: Text('Fourth'),
     ),
     NavigationRailDestination(
       icon: Icon(Icons.perm_identity),
-      // selectedIcon: Icon(Icons.favorite),
       label: Text('Fifth'),
     ),
   ];
