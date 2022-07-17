@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class NavCustomPainter extends CustomPainter {
@@ -20,34 +22,62 @@ class NavCustomPainter extends CustomPainter {
       ..color = color
       ..style = PaintingStyle.fill;
 
+    final double w = size.width;
+    final double h = size.height;
+
+    List<Point> p = [
+      Point(w, 0),
+      Point(w, (loc - 0.1) * h),
+      Point(w * 0.95, (loc + s * 0.20) * h),
+      Point(w * 0.4, loc * h),
+      Point(w * 0.4, (loc + s * 0.5) * h),
+      Point(w * 0.4, (loc + s) * h),
+      Point(w * 0.95, (loc + s - s * 0.2) * h),
+      Point(w, (loc + s + 0.1) * h),
+      Point(w, h),
+      Point(0, h),
+      Point(0, 0),
+    ];
+
     final path = Path()
-      ..moveTo(0, 0)
-      ..lineTo((loc - 0.1) * size.width, 0)
-      ..cubicTo(
-        (loc + s * 0.20) * size.width,
-        size.height * 0.05,
-        loc * size.width,
-        size.height * 0.60,
-        (loc + s * 0.50) * size.width,
-        size.height * 0.60,
-      )
-      ..cubicTo(
-        (loc + s) * size.width,
-        size.height * 0.60,
-        (loc + s - s * 0.20) * size.width,
-        size.height * 0.05,
-        (loc + s + 0.1) * size.width,
-        0,
-      )
-      ..lineTo(size.width, 0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
+      ..moveTo(p[0].x, p[0].y)
+      ..lineTo(p[1].x, p[1].y)
+      ..cubicTo(p[2].x, p[2].y, p[3].x, p[3].y, p[4].x, p[4].y)
+      ..cubicTo(p[5].x, p[5].y, p[6].x, p[6].y, p[7].x, p[7].y)
+      ..lineTo(p[8].x, p[8].y)
+      ..lineTo(p[9].x, p[9].y)
+      ..lineTo(p[10].x, p[10].y)
       ..close();
     canvas.drawPath(path, paint);
+
+    // visualisePoints(canvas, p);
+  }
+
+  void visualisePoints(Canvas canvas, List<Point> points) {
+    var paint = Paint()
+      ..color = Colors.brown
+      ..strokeWidth = 20;
+    canvas.drawPoints(
+        PointMode.points, points.map((e) => Offset(e.x, e.y)).toList(), paint);
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return this != oldDelegate;
+  }
+}
+
+class Point {
+  final double x;
+  final double y;
+
+  Point(
+    this.x,
+    this.y,
+  );
+
+  @override
+  String toString() {
+    return ('($x, $y)');
   }
 }

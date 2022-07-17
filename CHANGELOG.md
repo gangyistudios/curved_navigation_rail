@@ -1,3 +1,8 @@
+## [2.0.0]
+- Convert CurvedNavigationBar to CurvedNavigationRail widget 
+- Intended to be a direct replacement for NavigationRail widget 
+- No longer compatible with CurvedNavigationBar 
+
 ## [1.0.3]
 - rollback 1.0.2 bug
 
