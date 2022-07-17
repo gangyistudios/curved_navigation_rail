@@ -1,6 +1,6 @@
 ### Examples 
 
-1. minimal_example.dart - the bare minimum. 
+1. main.dart - minimal example. 
 
 2. change_page_programatically.dart - example of changing navigation rail item using a button on the page. 
 
