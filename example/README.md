@@ -1,16 +1,9 @@
-# example
+### Examples 
 
-A new Flutter project.
+1. minimal_example.dart - the bare minimum. 
 
-## Getting Started
+2. change_page_programatically.dart - example of changing navigation rail item using a button on the page. 
 
-This project is a starting point for a Flutter application.
+3. navigation_rail_dropin.dart - direct replacement for NavigationRail. Just replace NavigationRail with CurvedNavigationRail!
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. navigation_rail_dropin_inverted.dart - extended example of navigation_rail_dropin.dart showing an inverted navigation rail, for right to left directionalities. (TO BE IMPLEMENTED). 
