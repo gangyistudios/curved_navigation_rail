@@ -9,7 +9,7 @@ class CurvedNavigationRail extends StatefulWidget {
   final int selectedIndex;
   final Color color;
   final Color? buttonBackgroundColor;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final ValueChanged<int>? onDestinationSelected;
   final _LetIndexPage letIndexChange;
   final Curve animationCurve;
@@ -22,14 +22,13 @@ class CurvedNavigationRail extends StatefulWidget {
     this.selectedIndex = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
-    this.backgroundColor = Colors.blueAccent,
+    this.backgroundColor,
     this.onDestinationSelected,
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.width = 75.0,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
-        assert(destinations != null),
         assert(destinations.length >= 1),
         assert(0 <= selectedIndex && selectedIndex < destinations.length),
         assert(0 <= width && width <= 75.0),
@@ -94,15 +93,14 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
     Size size = MediaQuery.of(context).size;
     return Row(children: [
       Container(
-        color: widget.backgroundColor,
+        color:
+            widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
         width: widget.width,
-        // height: 800,
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.centerLeft,
           children: [
-            Scaffold(),
-            Positioned1a(
+            SelectedIcon(
               widget: widget,
               pos: _pos,
               size: size,
@@ -110,28 +108,9 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
               buttonHide: _buttonHide,
               icon: _icon,
             ),
-            Positioned2a(widget: widget, pos: _pos, length: _length),
-            Positioned(
-              // left: 0,
-              // right: 0,
-              // bottom: 0 - (75.0 - widget.height),
-              // TODO: Change to widget.width
-              left: 0 - (75.0 - widget.width),
-              top: 0,
-              bottom: 0,
-              child: SizedBox(
-                  width: 100.0,
-                  child: Column(
-                      children: widget.destinations.map((item) {
-                    return NavButton(
-                      onTap: _buttonTap,
-                      position: _pos,
-                      length: _length,
-                      index: widget.destinations.indexOf(item),
-                      child: Center(child: item.icon),
-                    );
-                  }).toList())),
-            ),
+            CurvedRail(widget: widget, pos: _pos, length: _length),
+            UnselectedIcons(
+                widget: widget, pos: _pos, length: _length, onTap: _buttonTap),
           ],
         ),
       ),
@@ -159,8 +138,44 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
   }
 }
 
-class Positioned2a extends StatelessWidget {
-  const Positioned2a({
+class UnselectedIcons extends StatelessWidget {
+  const UnselectedIcons({
+    Key? key,
+    required this.widget,
+    required this.pos,
+    required this.length,
+    required this.onTap,
+  }) : super(key: key);
+
+  final CurvedNavigationRail widget;
+  final double pos;
+  final int length;
+  final void Function(int) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 0 - (75.0 - widget.width),
+      top: 0,
+      bottom: 0,
+      child: SizedBox(
+          width: 100.0,
+          child: Column(
+              children: widget.destinations.map((item) {
+            return NavButton(
+              onTap: onTap,
+              position: pos,
+              length: length,
+              index: widget.destinations.indexOf(item),
+              child: Center(child: item.icon),
+            );
+          }).toList())),
+    );
+  }
+}
+
+class CurvedRail extends StatelessWidget {
+  const CurvedRail({
     Key? key,
     required this.widget,
     required double pos,
@@ -176,11 +191,6 @@ class Positioned2a extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      // left: 0,
-      // right: 0,
-      // bottom: 0 - (75.0 - widget.height),
-      // NEW
-      // TODO: Change to widget.width
       left: 0 - (75.0 - widget.width),
       top: 0,
       bottom: 0,
@@ -195,8 +205,8 @@ class Positioned2a extends StatelessWidget {
   }
 }
 
-class Positioned1a extends StatelessWidget {
-  const Positioned1a({
+class SelectedIcon extends StatelessWidget {
+  const SelectedIcon({
     Key? key,
     required this.widget,
     required double pos,
