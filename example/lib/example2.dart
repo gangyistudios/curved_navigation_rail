@@ -36,7 +36,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Scaffold(
       body: Row(
         children: <Widget>[
-          NavigationRail(
+          CurvedNavigationRail(
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
               setState(() {
