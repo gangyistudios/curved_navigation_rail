@@ -233,7 +233,7 @@ class SelectedIcon extends StatelessWidget {
       top: _pos * size.height,
       left: -40 - (75.0 - widget.width),
       height: size.height / _length,
-      child: Positioned1aCenter(
+      child: SelectedIconCircle(
         buttonHide: _buttonHide,
         widget: widget,
         icon: _icon,
@@ -242,8 +242,8 @@ class SelectedIcon extends StatelessWidget {
   }
 }
 
-class Positioned1aCenter extends StatelessWidget {
-  const Positioned1aCenter({
+class SelectedIconCircle extends StatelessWidget {
+  const SelectedIconCircle({
     Key? key,
     required double buttonHide,
     required this.widget,
