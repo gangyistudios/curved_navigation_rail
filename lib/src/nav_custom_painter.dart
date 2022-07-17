@@ -18,43 +18,11 @@ class NavCustomPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print('painting');
-    print(loc);
-    print(size);
-    print(size.width);
-    print(size.height);
     final paint = Paint()
       ..color = color
       ..style = PaintingStyle.fill;
 
-    final path1 = Path()
-      ..moveTo(0, 0)
-      ..lineTo((loc - 0.1) * size.width, 0)
-      ..cubicTo(
-        (loc + s * 0.20) * size.width,
-        size.height * 0.05,
-        loc * size.width,
-        size.height * 0.60,
-        (loc + s * 0.50) * size.width,
-        size.height * 0.60,
-      )
-      ..cubicTo(
-        (loc + s) * size.width,
-        size.height * 0.60,
-        (loc + s - s * 0.20) * size.width,
-        size.height * 0.05,
-        (loc + s + 0.1) * size.width,
-        0,
-      )
-      ..lineTo(size.width, 0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-
-    print((loc - 0.1) * size.height);
-
     //// SkETCHPAD STUFF
-    ///
     // Move pointer to TOP RIGHT, X positive axis right , Y positive axis downwards
     var l0x = size.width;
     var l0y = 0.0;

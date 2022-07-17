@@ -5,12 +5,12 @@ import 'src/nav_custom_painter.dart';
 typedef _LetIndexPage = bool Function(int value);
 
 class CurvedNavigationRail extends StatefulWidget {
-  final List<Widget> items;
-  final int index;
+  final List<NavigationRailDestination> destinations;
+  final int selectedIndex;
   final Color color;
   final Color? buttonBackgroundColor;
   final Color backgroundColor;
-  final ValueChanged<int>? onTap;
+  final ValueChanged<int>? onDestinationSelected;
   final _LetIndexPage letIndexChange;
   final Curve animationCurve;
   final Duration animationDuration;
@@ -18,20 +18,20 @@ class CurvedNavigationRail extends StatefulWidget {
 
   CurvedNavigationRail({
     Key? key,
-    required this.items,
-    this.index = 0,
+    required this.destinations,
+    this.selectedIndex = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
     this.backgroundColor = Colors.blueAccent,
-    this.onTap,
+    this.onDestinationSelected,
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
-        assert(items != null),
-        assert(items.length >= 1),
-        assert(0 <= index && index < items.length),
+        assert(destinations != null),
+        assert(destinations.length >= 1),
+        assert(0 <= selectedIndex && selectedIndex < destinations.length),
         assert(0 <= height && height <= 75.0),
         super(key: key);
 
@@ -52,18 +52,18 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
   @override
   void initState() {
     super.initState();
-    _icon = widget.items[widget.index];
-    _length = widget.items.length;
-    _pos = widget.index / _length;
-    _startingPos = widget.index / _length;
+    _icon = widget.destinations[widget.selectedIndex].icon;
+    _length = widget.destinations.length;
+    _pos = widget.selectedIndex / _length;
+    _startingPos = widget.selectedIndex / _length;
     _animationController = AnimationController(vsync: this, value: _pos);
     _animationController.addListener(() {
       setState(() {
         _pos = _animationController.value;
-        final endingPos = _endingIndex / widget.items.length;
+        final endingPos = _endingIndex / widget.destinations.length;
         final middle = (endingPos + _startingPos) / 2;
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
-          _icon = widget.items[_endingIndex];
+          _icon = widget.destinations[_endingIndex].icon;
         }
         _buttonHide =
             (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
@@ -74,10 +74,10 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
   @override
   void didUpdateWidget(CurvedNavigationRail oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.index != widget.index) {
-      final newPosition = widget.index / _length;
+    if (oldWidget.selectedIndex != widget.selectedIndex) {
+      final newPosition = widget.selectedIndex / _length;
       _startingPos = _pos;
-      _endingIndex = widget.index;
+      _endingIndex = widget.selectedIndex;
       _animationController.animateTo(newPosition,
           duration: widget.animationDuration, curve: widget.animationCurve);
     }
@@ -123,13 +123,13 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
               child: SizedBox(
                   width: 100.0,
                   child: Column(
-                      children: widget.items.map((item) {
+                      children: widget.destinations.map((item) {
                     return NavButton(
                       onTap: _buttonTap,
                       position: _pos,
                       length: _length,
-                      index: widget.items.indexOf(item),
-                      child: Center(child: item),
+                      index: widget.destinations.indexOf(item),
+                      child: Center(child: item.icon),
                     );
                   }).toList())),
             ),
@@ -137,42 +137,6 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
         ),
       ),
     ]);
-
-    return Container(
-      color: widget.backgroundColor,
-      height: widget.height,
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          Positioned1(
-              widget: widget,
-              pos: _pos,
-              size: size,
-              length: _length,
-              buttonHide: _buttonHide,
-              icon: _icon),
-          Positioned2(widget: widget, pos: _pos, length: _length),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0 - (75.0 - widget.height),
-            child: SizedBox(
-                height: 100.0,
-                child: Row(
-                    children: widget.items.map((item) {
-                  return NavButton(
-                    onTap: _buttonTap,
-                    position: _pos,
-                    length: _length,
-                    index: widget.items.indexOf(item),
-                    child: Center(child: item),
-                  );
-                }).toList())),
-          ),
-        ],
-      ),
-    );
   }
 
   void setPage(int index) {
@@ -183,8 +147,8 @@ class CurvedNavigationRailState extends State<CurvedNavigationRail>
     if (!widget.letIndexChange(index)) {
       return;
     }
-    if (widget.onTap != null) {
-      widget.onTap!(index);
+    if (widget.onDestinationSelected != null) {
+      widget.onDestinationSelected!(index);
     }
     final newPosition = index / _length;
     setState(() {
@@ -226,37 +190,6 @@ class Positioned2a extends StatelessWidget {
             _pos, _length, widget.color, Directionality.of(context)),
         child: Container(
           width: 75.0,
-        ),
-      ),
-    );
-  }
-}
-
-class Positioned2 extends StatelessWidget {
-  const Positioned2({
-    Key? key,
-    required this.widget,
-    required double pos,
-    required int length,
-  })  : _pos = pos,
-        _length = length,
-        super(key: key);
-
-  final CurvedNavigationRail widget;
-  final double _pos;
-  final int _length;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 0 - (75.0 - widget.height),
-      child: CustomPaint(
-        painter: NavCustomPainter(
-            _pos, _length, widget.color, Directionality.of(context)),
-        child: Container(
-          height: 75.0,
         ),
       ),
     );
@@ -328,59 +261,6 @@ class Positioned1aCenter extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: _icon,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Positioned1 extends StatelessWidget {
-  const Positioned1({
-    Key? key,
-    required this.widget,
-    required double pos,
-    required this.size,
-    required int length,
-    required double buttonHide,
-    required Widget icon,
-  })  : _pos = pos,
-        _length = length,
-        _buttonHide = buttonHide,
-        _icon = icon,
-        super(key: key);
-
-  final CurvedNavigationRail widget;
-  final double _pos;
-  final Size size;
-  final int _length;
-  final double _buttonHide;
-  final Widget _icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: -40 - (75.0 - widget.height),
-      left: Directionality.of(context) == TextDirection.rtl
-          ? null
-          : _pos * size.width,
-      right: Directionality.of(context) == TextDirection.rtl
-          ? _pos * size.width
-          : null,
-      width: size.width / _length,
-      child: Center(
-        child: Transform.translate(
-          offset: Offset(
-            0,
-            -(1 - _buttonHide) * 80,
-          ),
-          child: Material(
-            color: widget.buttonBackgroundColor ?? widget.color,
-            type: MaterialType.circle,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _icon,
-            ),
           ),
         ),
       ),

@@ -14,26 +14,56 @@ class _CurvedNavigationRailExampleState
   int _page = 0;
   GlobalKey<CurvedNavigationRailState> _bottomNavigationKey = GlobalKey();
 
+  final List<Widget> destinationsOld = [
+    Icon(Icons.add, size: 30),
+    Icon(Icons.list, size: 30),
+    Icon(Icons.compare_arrows, size: 30),
+    Icon(Icons.call_split, size: 30),
+    Icon(Icons.perm_identity, size: 30),
+  ];
+
+  final List<NavigationRailDestination> destinations = [
+    NavigationRailDestination(
+      icon: Icon(Icons.add),
+      // selectedIcon: Icon(Icons.favorite),
+      label: Text('First'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.list),
+      // selectedIcon: Icon(Icons.favorite),
+      label: Text('Second'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.compare_arrows),
+      // selectedIcon: Icon(Icons.favorite),
+      label: Text('Third'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.call_split),
+      // selectedIcon: Icon(Icons.favorite),
+      label: Text('Fourth'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.perm_identity),
+      // selectedIcon: Icon(Icons.favorite),
+      label: Text('Fifth'),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CurvedNavigationRail(
           key: _bottomNavigationKey,
-          index: 0,
+          selectedIndex: 0,
           height: 60.0,
-          items: <Widget>[
-            Icon(Icons.add, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
-          ],
+          destinations: destinations,
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
           backgroundColor: Colors.blue,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
-          onTap: (index) {
+          onDestinationSelected: (index) {
             setState(() {
               _page = index;
             });
