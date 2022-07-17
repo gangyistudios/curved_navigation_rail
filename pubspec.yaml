@@ -1,7 +1,7 @@
 name: curved_navigation_bar
-description: Stunning Animating Curved Shape Navigation Bar. Adjustable color, background color, animation curve, animation duration.
+description: Stunning Animating Curved Shape Navigation Rail. Adjustable color, background color, animation curve, animation duration.
 version: 1.0.3
-homepage: https://github.com/rafalbednarczuk/curved_navigation_bar
+homepage: https://github.com/gangyistudios/curved_navigation_rail
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
