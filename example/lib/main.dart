@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_rail/curved_navigation_rail.dart';
 
-void main() => runApp(MaterialApp(home: BottomNavBar()));
+void main() => runApp(MaterialApp(home: CurvedNavigationRailExample()));
 
-class BottomNavBar extends StatefulWidget {
+class CurvedNavigationRailExample extends StatefulWidget {
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  _CurvedNavigationRailExampleState createState() =>
+      _CurvedNavigationRailExampleState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+class _CurvedNavigationRailExampleState
+    extends State<CurvedNavigationRailExample> {
   int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  GlobalKey<CurvedNavigationRailState> _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
+        bottomNavigationBar: CurvedNavigationRail(
           key: _bottomNavigationKey,
           index: 0,
           height: 60.0,
@@ -48,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ElevatedButton(
                   child: Text('Go To Page of index 1'),
                   onPressed: () {
-                    final CurvedNavigationBarState? navBarState =
+                    final CurvedNavigationRailState? navBarState =
                         _bottomNavigationKey.currentState;
                     navBarState?.setPage(1);
                   },

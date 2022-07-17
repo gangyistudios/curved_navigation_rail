@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
 typedef _LetIndexPage = bool Function(int value);
 
-class CurvedNavigationBar extends StatefulWidget {
+class CurvedNavigationRail extends StatefulWidget {
   final List<Widget> items;
   final int index;
   final Color color;
@@ -17,7 +16,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Duration animationDuration;
   final double height;
 
-  CurvedNavigationBar({
+  CurvedNavigationRail({
     Key? key,
     required this.items,
     this.index = 0,
@@ -37,10 +36,10 @@ class CurvedNavigationBar extends StatefulWidget {
         super(key: key);
 
   @override
-  CurvedNavigationBarState createState() => CurvedNavigationBarState();
+  CurvedNavigationRailState createState() => CurvedNavigationRailState();
 }
 
-class CurvedNavigationBarState extends State<CurvedNavigationBar>
+class CurvedNavigationRailState extends State<CurvedNavigationRail>
     with SingleTickerProviderStateMixin {
   late double _startingPos;
   int _endingIndex = 0;
@@ -73,7 +72,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   }
 
   @override
-  void didUpdateWidget(CurvedNavigationBar oldWidget) {
+  void didUpdateWidget(CurvedNavigationRail oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.index != widget.index) {
       final newPosition = widget.index / _length;
@@ -207,7 +206,7 @@ class Positioned2a extends StatelessWidget {
         _length = length,
         super(key: key);
 
-  final CurvedNavigationBar widget;
+  final CurvedNavigationRail widget;
   final double _pos;
   final int _length;
 
@@ -243,7 +242,7 @@ class Positioned2 extends StatelessWidget {
         _length = length,
         super(key: key);
 
-  final CurvedNavigationBar widget;
+  final CurvedNavigationRail widget;
   final double _pos;
   final int _length;
 
@@ -279,7 +278,7 @@ class Positioned1a extends StatelessWidget {
         _icon = icon,
         super(key: key);
 
-  final CurvedNavigationBar widget;
+  final CurvedNavigationRail widget;
   final double _pos;
   final Size size;
   final int _length;
@@ -312,7 +311,7 @@ class Positioned1aCenter extends StatelessWidget {
         super(key: key);
 
   final double _buttonHide;
-  final CurvedNavigationBar widget;
+  final CurvedNavigationRail widget;
   final Widget _icon;
 
   @override
@@ -351,7 +350,7 @@ class Positioned1 extends StatelessWidget {
         _icon = icon,
         super(key: key);
 
-  final CurvedNavigationBar widget;
+  final CurvedNavigationRail widget;
   final double _pos;
   final Size size;
   final int _length;
