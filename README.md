@@ -5,11 +5,11 @@ A Flutter package for easy implementation of curved navigation rail. Designed to
 
 This is a fork of the [curved_navigation_bar](https://pub.dev/packages/curved_navigation_bar) package. Thank you to the developers of that package for inspiration. Now the same curved theme can consistently be applied in adaptive layouts!
 
-![Gif](https://github.com/gangyistudios/curved_navigation_rail/blob/master/example/example1.gif "NavigationRail drop-in example")
+![Gif](https://github.com/gangyistudios/curved_navigation_rail/blob/master/example/assets/example1.gif "NavigationRail drop-in example")
 
 Retaining the same example as curved_navigation_bar:
 
-![Gif](https://github.com/gangyistudios/curved_navigation_rail/blob/master/example/example.gif "curved_navigation_rail example")
+![Gif](https://github.com/gangyistudios/curved_navigation_rail/blob/master/example/assets/example.gif "curved_navigation_rail example")
 
 ### Add dependency
 
