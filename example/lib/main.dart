@@ -28,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.blue,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
           onTap: (index) {
@@ -39,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           letIndexChange: (index) => true,
         ),
         body: Container(
-          color: Colors.blueAccent,
+          color: Colors.blue,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

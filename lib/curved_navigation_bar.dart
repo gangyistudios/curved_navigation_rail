@@ -93,6 +93,52 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    return Row(children: [
+      Container(
+        color: widget.backgroundColor,
+        // TODO: change this to a width variable.
+        width: widget.height,
+        // height: 800,
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.centerLeft,
+          children: [
+            Scaffold(body: Center(child: Text('hello'))),
+            Positioned1a(
+              widget: widget,
+              pos: _pos,
+              size: size,
+              length: _length,
+              buttonHide: _buttonHide,
+              icon: _icon,
+            ),
+            Positioned2a(widget: widget, pos: _pos, length: _length),
+            Positioned(
+              // left: 0,
+              // right: 0,
+              // bottom: 0 - (75.0 - widget.height),
+              // TODO: Change to widget.width
+              left: 0 - (75.0 - widget.height),
+              top: 0,
+              bottom: 0,
+              child: SizedBox(
+                  width: 100.0,
+                  child: Column(
+                      children: widget.items.map((item) {
+                    return NavButton(
+                      onTap: _buttonTap,
+                      position: _pos,
+                      length: _length,
+                      index: widget.items.indexOf(item),
+                      child: Center(child: item),
+                    );
+                  }).toList())),
+            ),
+          ],
+        ),
+      ),
+    ]);
+
     return Container(
       color: widget.backgroundColor,
       height: widget.height,
@@ -100,44 +146,14 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         clipBehavior: Clip.none,
         alignment: Alignment.bottomCenter,
         children: <Widget>[
-          Positioned(
-            bottom: -40 - (75.0 - widget.height),
-            left: Directionality.of(context) == TextDirection.rtl
-                ? null
-                : _pos * size.width,
-            right: Directionality.of(context) == TextDirection.rtl
-                ? _pos * size.width
-                : null,
-            width: size.width / _length,
-            child: Center(
-              child: Transform.translate(
-                offset: Offset(
-                  0,
-                  -(1 - _buttonHide) * 80,
-                ),
-                child: Material(
-                  color: widget.buttonBackgroundColor ?? widget.color,
-                  type: MaterialType.circle,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _icon,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0 - (75.0 - widget.height),
-            child: CustomPaint(
-              painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
-              child: Container(
-                height: 75.0,
-              ),
-            ),
-          ),
+          Positioned1(
+              widget: widget,
+              pos: _pos,
+              size: size,
+              length: _length,
+              buttonHide: _buttonHide,
+              icon: _icon),
+          Positioned2(widget: widget, pos: _pos, length: _length),
           Positioned(
             left: 0,
             right: 0,
@@ -178,5 +194,197 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       _animationController.animateTo(newPosition,
           duration: widget.animationDuration, curve: widget.animationCurve);
     });
+  }
+}
+
+class Positioned2a extends StatelessWidget {
+  const Positioned2a({
+    Key? key,
+    required this.widget,
+    required double pos,
+    required int length,
+  })  : _pos = pos,
+        _length = length,
+        super(key: key);
+
+  final CurvedNavigationBar widget;
+  final double _pos;
+  final int _length;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      // left: 0,
+      // right: 0,
+      // bottom: 0 - (75.0 - widget.height),
+      // NEW
+      // TODO: Change to widget.width
+      left: 0 - (75.0 - widget.height),
+      top: 0,
+      bottom: 0,
+      child: CustomPaint(
+        painter: NavCustomPainter(
+            _pos, _length, widget.color, Directionality.of(context)),
+        child: Container(
+          width: 75.0,
+        ),
+      ),
+    );
+  }
+}
+
+class Positioned2 extends StatelessWidget {
+  const Positioned2({
+    Key? key,
+    required this.widget,
+    required double pos,
+    required int length,
+  })  : _pos = pos,
+        _length = length,
+        super(key: key);
+
+  final CurvedNavigationBar widget;
+  final double _pos;
+  final int _length;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: 0 - (75.0 - widget.height),
+      child: CustomPaint(
+        painter: NavCustomPainter(
+            _pos, _length, widget.color, Directionality.of(context)),
+        child: Container(
+          height: 75.0,
+        ),
+      ),
+    );
+  }
+}
+
+class Positioned1a extends StatelessWidget {
+  const Positioned1a({
+    Key? key,
+    required this.widget,
+    required double pos,
+    required this.size,
+    required int length,
+    required double buttonHide,
+    required Widget icon,
+  })  : _pos = pos,
+        _length = length,
+        _buttonHide = buttonHide,
+        _icon = icon,
+        super(key: key);
+
+  final CurvedNavigationBar widget;
+  final double _pos;
+  final Size size;
+  final int _length;
+  final double _buttonHide;
+  final Widget _icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: _pos * size.height,
+      left: -40 - (75.0 - widget.height),
+      height: size.height / _length,
+      child: Positioned1aCenter(
+        buttonHide: _buttonHide,
+        widget: widget,
+        icon: _icon,
+      ),
+    );
+  }
+}
+
+class Positioned1aCenter extends StatelessWidget {
+  const Positioned1aCenter({
+    Key? key,
+    required double buttonHide,
+    required this.widget,
+    required Widget icon,
+  })  : _buttonHide = buttonHide,
+        _icon = icon,
+        super(key: key);
+
+  final double _buttonHide;
+  final CurvedNavigationBar widget;
+  final Widget _icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Transform.translate(
+        offset: Offset(
+          (1 - _buttonHide) * 80,
+          0,
+        ),
+        child: Material(
+          color: widget.buttonBackgroundColor ?? widget.color,
+          type: MaterialType.circle,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _icon,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Positioned1 extends StatelessWidget {
+  const Positioned1({
+    Key? key,
+    required this.widget,
+    required double pos,
+    required this.size,
+    required int length,
+    required double buttonHide,
+    required Widget icon,
+  })  : _pos = pos,
+        _length = length,
+        _buttonHide = buttonHide,
+        _icon = icon,
+        super(key: key);
+
+  final CurvedNavigationBar widget;
+  final double _pos;
+  final Size size;
+  final int _length;
+  final double _buttonHide;
+  final Widget _icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: -40 - (75.0 - widget.height),
+      left: Directionality.of(context) == TextDirection.rtl
+          ? null
+          : _pos * size.width,
+      right: Directionality.of(context) == TextDirection.rtl
+          ? _pos * size.width
+          : null,
+      width: size.width / _length,
+      child: Center(
+        child: Transform.translate(
+          offset: Offset(
+            0,
+            -(1 - _buttonHide) * 80,
+          ),
+          child: Material(
+            color: widget.buttonBackgroundColor ?? widget.color,
+            type: MaterialType.circle,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _icon,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
