@@ -1,5 +1,5 @@
 # curved_navigation_rail
-[pub package](https://pub.dartlang.org/packages/curved_navigation_rail)
+[pub.dev ->](https://pub.dartlang.org/packages/curved_navigation_rail)
 
 A Flutter package for easy implementation of curved navigation rail. Designed to be a ***direct drop-in replacement*** for [NavigationRail](https://api.flutter.dev/flutter/material/NavigationRail-class.html).
 
