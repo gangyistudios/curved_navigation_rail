@@ -2,7 +2,7 @@ import 'package:curved_navigation_rail/curved_navigation_rail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -10,7 +10,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: CurvedNavigationRailExamplePage(),
     );
   }
@@ -30,7 +30,7 @@ class _CurvedNavigationRailExamplePageState
 
   @override
   Widget build(BuildContext context) {
-    final List<NavigationRailDestination> destinations = [
+    final List<NavigationRailDestination> destinations = const [
       NavigationRailDestination(
           icon: Icon(Icons.person), label: Text('Profile')),
       NavigationRailDestination(icon: Icon(Icons.home), label: Text('Home')),
