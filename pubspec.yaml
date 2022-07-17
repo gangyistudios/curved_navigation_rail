@@ -1,4 +1,4 @@
-name: curved_navigation_bar
+name: curved_navigation_rail
 description: Stunning Animating Curved Shape Navigation Rail. Adjustable color, background color, animation curve, animation duration.
 version: 1.0.3
 homepage: https://github.com/gangyistudios/curved_navigation_rail
@@ -14,6 +14,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  change_app_package_name: ^0.1.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

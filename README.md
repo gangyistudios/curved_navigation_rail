@@ -1,15 +1,15 @@
-# curved_navigation_bar
-[pub package](https://pub.dartlang.org/packages/curved_navigation_bar)
+# curved_navigation_rail
+[pub package](https://pub.dartlang.org/packages/curved_navigation_rail)
 
 A Flutter package for easy implementation of curved navigation bar. 
 
-![Gif](https://github.com/rafalbednarczuk/curved_navigation_bar/blob/master/example.gif "Fancy Gif")
+![Gif](https://github.com/gangyistudios/curved_navigation_rail/blob/master/example.gif "Fancy Gif")
 
 ### Add dependency
 
 ```yaml
 dependencies:
-  curved_navigation_bar: ^1.0.3 #latest version
+  curved_navigation_rail: ^1.0.4 #latest version
 ```
 
 ### Easy to use
