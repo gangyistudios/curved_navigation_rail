@@ -1,3 +1,6 @@
+## [2.0.1]
+- Tidy up package, code and example, no functional changes
+
 ## [2.0.0]
 - Convert CurvedNavigationBar to CurvedNavigationRail widget 
 - Intended to be a direct replacement for NavigationRail widget 

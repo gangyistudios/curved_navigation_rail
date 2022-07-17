@@ -15,7 +15,7 @@ Retaining the same example as curved_navigation_bar:
 
 ```yaml
 dependencies:
-  curved_navigation_rail: ^2.0.0 #latest version
+  curved_navigation_rail: ^2.0.1 #latest version
 ```
 
 ### Easy to use
